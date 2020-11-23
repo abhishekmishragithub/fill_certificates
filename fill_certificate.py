@@ -5,7 +5,7 @@ from PIL import ImageFont
 from PIL import ImageDraw
 import csv
 
-with open('data/timesheet.csv') as csvfile:
+with open('data/participants.csv') as csvfile:
     tsreader = csv.DictReader(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
     for row in tsreader:
         img = Image.open("certificate-template.jpg")
