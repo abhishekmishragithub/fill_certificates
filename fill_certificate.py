@@ -28,5 +28,6 @@ with open('data/participants.csv') as csvfile:
         font = ImageFont.truetype(r'./news-serif.ttf', 40)
         draw.text((900, 520), time, (0,0,0), font=font)
 
-        img.save('certs/{0}.jpg'.format(name))
+        cert_name = name.replace(' ', '_')
+        img.save('certs/{0}.jpg'.format(cert_name))
         img.close
