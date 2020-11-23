@@ -15,8 +15,8 @@ with open('data/participants.csv') as csvfile:
         # https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
         # Prints Name
         # name = 'Warnakulasuriya Patabendige Ushantha Joseph Chaminda Vaas'
-        font = ImageFont.truetype(r'./news-serif.ttf', 64)
-        W, H = (1754,1241)
+        font = ImageFont.truetype(r'./font.ttf', 96)
+        W, H = (2373,1641)
         w, h = font.getsize(name)
         draw.text(((W-w)/2, 570), name, (0,0,0), font=font)
 
