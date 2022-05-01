@@ -11,8 +11,7 @@ with open('data/timesheet.csv') as csvfile:
         img = Image.open("certificate-template.jpg")
         draw = ImageDraw.Draw(img)
         name = row['name']
-        distance = row['distance']
-        time = row['time']
+        team = row['team']
         # Credits:
         # https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
         # Prints Name
@@ -20,13 +19,10 @@ with open('data/timesheet.csv') as csvfile:
         font = ImageFont.truetype(r'./news-serif.ttf', 64)
         W, H = (1754,1241)
         w, h = font.getsize(name)
-        draw.text(((W-w)/2, 363), name, (0,0,0), font=font)
+        draw.text((((W-w)/2)-285, 500), name, (0,0,0), font=font)
         # Prints Distance
         font = ImageFont.truetype(r'./news-serif.ttf', 40)
-        draw.text((500, 520), distance, (0,0,0), font=font)
-
-        font = ImageFont.truetype(r'./news-serif.ttf', 40)
-        draw.text((900, 520), time, (0,0,0), font=font)
+        draw.text((300, 620), team, (0,0,0), font=font)
 
         img.save('certs/{0}.jpg'.format(name))
         img.close
