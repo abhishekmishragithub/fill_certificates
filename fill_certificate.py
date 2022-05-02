@@ -5,10 +5,21 @@ from PIL import ImageFont
 from PIL import ImageDraw
 import csv
 import configparser
+import argparse
+
+image_path="certs"
+parser = argparse.ArgumentParser()
+parser.add_argument("--datafile", help="Pass optional file path. Default: data/timesheet.csv")
+args = parser.parse_args()
+if args.datafile:
+    filepath = args.datafile
+else:
+    filepath = "data/timesheet.csv"
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-with open('data/timesheet.csv') as csvfile:
+
+with open(filepath) as csvfile:
     tsreader = csv.DictReader(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
     for row in tsreader:
         img = Image.open("certificate-template.jpg")
@@ -22,8 +33,6 @@ with open('data/timesheet.csv') as csvfile:
 
         for key, value in row.items():
             item = row[key].strip()
-            print(key)
-            print(item)
             font_size = config.getint(key, 'font_size')
             font = ImageFont.truetype(r'./news-serif.ttf', font_size)
             w, h = font.getsize(item)
@@ -38,5 +47,7 @@ with open('data/timesheet.csv') as csvfile:
             draw.text((item_width, item_height), item, (0, 0, 0), font=font)
 
         cert_name = row['name'].lower().replace(' ', '_')
-        img.save('certs/{0}.jpg'.format(cert_name))
+        cert_path=f'{image_path}/{cert_name}.jpg'
+        img.save(cert_path)
         img.close()
+        print(f"Image {cert_path} saved!")

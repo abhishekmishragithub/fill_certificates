@@ -16,7 +16,7 @@ Certificate for Ashok Kumar would be stored in `certs/ashok_kumar.jpg`.
 * Where width is not provided, script will automatically center the text.
 * Where left or right offset is provided, text will be offset accordingly. Offset doesn't work when width is explicitly given.
 * Width and font size are required fields.
-
+* Pass optional parameter --datafile to give path of your required datafile. It should be in csv format with header field.
 __Example:__
 timesheet.csv
 ```
