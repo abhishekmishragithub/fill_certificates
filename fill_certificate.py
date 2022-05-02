@@ -28,7 +28,7 @@ with open('data/timesheet.csv') as csvfile:
         w, h = font.getsize(name)
         name_width = int(config['name']['width_offset_left']) + int((W-w)/2) - int(config['name']['width_offset_right'])
         name_height = int(config['name']['height'])
-        draw.text((name_width, name_height), name, (0,0,0), font=font)
+        draw.text((name_width, name_height), name, (0, 0, 0), font=font)
 
         # Prints Distance
         distance = row['distance']
@@ -36,7 +36,7 @@ with open('data/timesheet.csv') as csvfile:
         distance_height = int(config['distance']['height'])
         distance_font_size = int(config['distance']['font_size'])
         font = ImageFont.truetype(r'./news-serif.ttf', distance_font_size)
-        draw.text((distance_width, distance_height), distance, (0,0,0), font=font)
+        draw.text((distance_width, distance_height), distance, (0, 0, 0), font=font)
 
         # Prints Time
         time = row['time']
@@ -48,4 +48,4 @@ with open('data/timesheet.csv') as csvfile:
 
         cert_name = name.lower().replace(' ', '_')
         img.save('certs/{0}.jpg'.format(cert_name))
-        img.close
+        img.close()
