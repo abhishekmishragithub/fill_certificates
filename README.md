@@ -11,14 +11,37 @@ __Example:__
 Certificate for Ashok Kumar would be stored in `certs/ashok_kumar.jpg`.
 
 ### How to use
-* Go to config.ini and set the image height and width.
-* The script automatically calculates width for the name to center it. So set the correct height and left, right offsets if needed.
-* Set the font size according to your needs.
-* Set the appropriate height, width and font size for time and distance fields.
-> The script assumes you have 3 fields - name, distance and time. If you have different fields, you'll need to change code
-to match the fields.
+* Go to config.ini and set the image height and width, under `[image]` section.
+* Update the other sections to match the headers in the timesheet. See example below
+* Where width is not provided, script will automatically center the text.
+* Where left or right offset is provided, text will be offset accordingly. Offset doesn't work when width is explicitly given.
+* Width and font size are required fields.
 
-
+__Example:__
+timesheet.csv
+```
+name,distance,time
+Ashok Kumar, 5 km, "2:00:00"
+```
+config.ini
+```
+[image]
+height=111
+width=111
+[name]
+height=010
+width_offset_left=000
+width_offset_right=010
+font_size=40
+[distance]
+width=040
+height=030
+font_size=20
+[time]
+width=080
+height=030
+font_size=20
+```
 
 ###References
 * Font: https://www.wfonts.com/search?kwd=serif
