@@ -7,14 +7,20 @@ import csv
 import configparser
 import argparse
 
-image_path="certs"
+output_path="certs"
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--datafile", help="Pass optional file path. Default: data/timesheet.csv")
+parser.add_argument("--outputpath", help="Pass optional output path. Default: certs/")
 args = parser.parse_args()
+
 if args.datafile:
     filepath = args.datafile
 else:
-    filepath = "data/timesheet.csv"
+    filepath = f"data/timesheet.csv"
+
+if args.outputpath:
+    output_path= args.outputpath
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -47,7 +53,11 @@ with open(filepath) as csvfile:
             draw.text((item_width, item_height), item, (0, 0, 0), font=font)
 
         cert_name = row['name'].lower().replace(' ', '_')
-        cert_path=f'{image_path}/{cert_name}.jpg'
-        img.save(cert_path)
-        img.close()
-        print(f"Image {cert_path} saved!")
+        cert_path=f'{output_path}/{cert_name}.jpg'
+        try:
+            img.save(cert_path)
+            img.close()
+            print(f"Image {cert_path} saved!")
+        except FileNotFoundError:
+            print("Unable to save file. Please check the given directory exists.")
+            os.exit(1)

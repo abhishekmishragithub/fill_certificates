@@ -17,6 +17,7 @@ Certificate for Ashok Kumar would be stored in `certs/ashok_kumar.jpg`.
 * Where left or right offset is provided, text will be offset accordingly. Offset doesn't work when width is explicitly given.
 * Width and font size are required fields.
 * Pass optional parameter --datafile to give path of your required datafile. It should be in csv format with header field.
+* Pass optional parameter --outputpath to give alternate output directory
 __Example:__
 timesheet.csv
 ```
