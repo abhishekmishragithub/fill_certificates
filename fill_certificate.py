@@ -46,5 +46,6 @@ with open('data/timesheet.csv') as csvfile:
         font = ImageFont.truetype(r'./news-serif.ttf', time_font_size)
         draw.text((time_width, time_height), time, (0, 0, 0), font=font)
 
-        img.save('certs/{0}.jpg'.format(name))
+        cert_name = name.lower().replace(' ', '_')
+        img.save('certs/{0}.jpg'.format(cert_name))
         img.close
