@@ -1,0 +1,4 @@
+certs/*.jpg
+data/*.csv
+*.jpg
+*.zip
