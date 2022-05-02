@@ -15,13 +15,13 @@ with open('data/timesheet.csv') as csvfile:
         draw = ImageDraw.Draw(img)
         # Credits:
         # https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
-        # Prints Name
-        # name = 'Warnakulasuriya Patabendige Ushantha Joseph Chaminda Vaas'
+
         image_width = int(config['image']['width'])
         image_height = int(config['image']['height'])
         W, H = (image_width, image_height)
 
         # Prints Name
+        # name = 'Warnakulasuriya Patabendige Ushantha Joseph Chaminda Vaas'
         name = row['name']
         name_font_size = int(config['name']['font_size'])
         font = ImageFont.truetype(r'./news-serif.ttf', name_font_size)
