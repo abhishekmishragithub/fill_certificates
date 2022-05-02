@@ -7,11 +7,10 @@ import csv
 import configparser
 import argparse
 
-output_path="certs"
-
 parser = argparse.ArgumentParser()
 parser.add_argument("--datafile", help="Pass optional file path. Default: data/timesheet.csv")
 parser.add_argument("--outputpath", help="Pass optional output path. Default: certs/")
+parser.add_argument("--certificatefile", help="Pass optional certificate file. Default: ./certificate-template.jpg")
 args = parser.parse_args()
 
 if args.datafile:
@@ -21,6 +20,14 @@ else:
 
 if args.outputpath:
     output_path= args.outputpath
+else:
+    output_path = "certs"
+
+if args.certificatefile:
+    certificate_template = args.certificatefile
+else:
+    certificate_template = "./certificate-template.jpg"
+
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -28,7 +35,7 @@ config.read('config.ini')
 with open(filepath) as csvfile:
     tsreader = csv.DictReader(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
     for row in tsreader:
-        img = Image.open("certificate-template.jpg")
+        img = Image.open(certificate_template)
         draw = ImageDraw.Draw(img)
         # Credits:
         # https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil

@@ -3,7 +3,7 @@
 ## Script to batch fill certificates
 
 ### How does it work?
-The script iterates through `data/timesheet.csv` and fills the value in the certificate and stores them in `certs/`. 
+The script iterates through `data/timesheet.csv` and fills the value in the certificate template picked from `./certificate-template.jpg` and stores them in `certs/`. 
 Each certificate is stored with name of the participant.
 
 __Example:__
@@ -18,6 +18,7 @@ Certificate for Ashok Kumar would be stored in `certs/ashok_kumar.jpg`.
 * Width and font size are required fields.
 * Pass optional parameter --datafile to give path of your required datafile. It should be in csv format with header field.
 * Pass optional parameter --outputpath to give alternate output directory
+* Pass optional parameter --certificatefile to give path to the certificate file.
 __Example:__
 timesheet.csv
 ```
@@ -47,5 +48,6 @@ font_size=20
 ###References
 * Font: https://www.wfonts.com/search?kwd=serif
 * Code: https://stackoverflow.com/questions/16373425/add-text-on-image-using-pil
+* 
 * Docs: https://pillow.readthedocs.io/en/stable/reference/Image.html
 * Similar project: https://crondev.blog/2014/06/16/make-a-certificate-creator-using-python/
