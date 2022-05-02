@@ -6,6 +6,17 @@ from PIL import ImageDraw
 import csv
 import configparser
 import argparse
+import logging
+from datetime import datetime
+import uuid
+
+logging.basicConfig(level=logging.DEBUG)
+run_id = str(uuid.uuid4())
+logging.info({
+    "status": "started",
+    "identifier": run_id,
+    "time": str(datetime.now())
+})
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--datafile", help="Pass optional file path. Default: data/timesheet.csv")
@@ -19,7 +30,7 @@ else:
     filepath = f"data/timesheet.csv"
 
 if args.outputpath:
-    output_path= args.outputpath
+    output_path = args.outputpath
 else:
     output_path = "certs"
 
@@ -28,13 +39,29 @@ if args.certificatefile:
 else:
     certificate_template = "./certificate-template.jpg"
 
+logging.info({
+    "timesheet": filepath,
+    "certificate_directory": output_path,
+    "certificate_template": certificate_template
+})
+
 
 config = configparser.ConfigParser()
 config.read('config.ini')
+config_dump = {}
+for each_section in config.sections():
+    for (each_key, each_val) in config.items(each_section):
+        config_dump[each_key] = each_val
+logging.debug({"config": config_dump})
+
 
 with open(filepath) as csvfile:
     tsreader = csv.DictReader(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
     for row in tsreader:
+        logging.info({
+            "item": row,
+            "time": str(datetime.now())
+        })
         img = Image.open(certificate_template)
         draw = ImageDraw.Draw(img)
         # Credits:
@@ -43,8 +70,16 @@ with open(filepath) as csvfile:
         image_width = int(config['image']['width'])
         image_height = int(config['image']['height'])
         W, H = (image_width, image_height)
-
+        logging.info({
+            "image": {
+                "width": image_width,
+                "height": image_height
+            }
+        })
         for key, value in row.items():
+            logging.info({
+                key: value
+            })
             item = row[key].strip()
             font_size = config.getint(key, 'font_size')
             font = ImageFont.truetype(r'./news-serif.ttf', font_size)
@@ -60,11 +95,25 @@ with open(filepath) as csvfile:
             draw.text((item_width, item_height), item, (0, 0, 0), font=font)
 
         cert_name = row['name'].lower().replace(' ', '_')
-        cert_path=f'{output_path}/{cert_name}.jpg'
+        cert_path = f'{output_path}/{cert_name}.jpg'
         try:
             img.save(cert_path)
             img.close()
-            print(f"Image {cert_path} saved!")
+            logging.info({
+                "status": "saved",
+                "certificate": cert_path,
+                "time": str(datetime.now())
+            })
         except FileNotFoundError:
-            print("Unable to save file. Please check the given directory exists.")
-            os.exit(1)
+            logging.error({
+                "status": "error",
+                "exception": "Unable to save file. Please check the given directory exists.",
+                "identifier": run_id,
+                "time": datetime.now()
+            })
+            exit(1)
+logging.info({
+    "status": "completed",
+    "identifier": run_id,
+    "time": str(datetime.now())
+})
